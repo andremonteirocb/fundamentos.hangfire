@@ -19,7 +19,7 @@ namespace Fundamentos.Hangfire.Controllers
         }
 
         [HttpPost]
-        [Route("Enqueue")]
+        [Route("MultipleEnqueue")]
         public IActionResult MultipleEnqueue(DadosInputModel dados)
         {
             for (var i = 0; i < dados.QtdFilas; i++)
