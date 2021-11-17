@@ -3,5 +3,6 @@
     public class DadosInputModel
     {
         public string JobName { get; set; }
+        public int QtdFilas { get; set; }
     }
 }

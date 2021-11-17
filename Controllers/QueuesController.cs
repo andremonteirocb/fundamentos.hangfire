@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Threading;
 
 namespace Fundamentos.Hangfire.Controllers
 {
@@ -15,6 +16,22 @@ namespace Fundamentos.Hangfire.Controllers
         public QueuesController(ILogger<QueuesController> logger)
         {
             _logger = logger;
+        }
+
+        [HttpPost]
+        [Route("Enqueue")]
+        public IActionResult MultipleEnqueue(DadosInputModel dados)
+        {
+            for (var i = 0; i < dados.QtdFilas; i++)
+                BackgroundJob.Enqueue(() => Receive(i));
+
+            return Accepted();
+        }
+
+        public void Receive(int i)
+        {
+            Console.WriteLine($"Enqueue: {i}!");
+            Thread.Sleep(1000);
         }
 
         [HttpPost]

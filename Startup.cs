@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Hangfire;
 using Hangfire.MemoryStorage;
+using System;
 
 namespace Fundamentos.Hangfire
 {
@@ -27,7 +28,10 @@ namespace Fundamentos.Hangfire
             });
 
             services.AddHangfire(opt => opt.UseMemoryStorage());
-            services.AddHangfireServer();
+            services.AddHangfireServer(opt =>
+            {
+                opt.WorkerCount = Environment.ProcessorCount * 5;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
