@@ -23,15 +23,9 @@ namespace Fundamentos.Hangfire.Controllers
         public IActionResult MultipleEnqueue(DadosInputModel dados)
         {
             for (var i = 0; i < dados.QtdFilas; i++)
-                BackgroundJob.Enqueue(() => Receive(i));
+                BackgroundJob.Enqueue(() => Console.WriteLine($"Enqueue: {i}!"));
 
             return Accepted();
-        }
-
-        public void Receive(int i)
-        {
-            Console.WriteLine($"Enqueue: {i}!");
-            Thread.Sleep(1000);
         }
 
         [HttpPost]
